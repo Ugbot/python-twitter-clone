@@ -34,8 +34,8 @@ class quest:
     def make_presence_record(self, my_presence_event :Presence_message):
         pass
 
-    def send_record(self, bytes):
-        self.s.sendall(bytes)
+    def send_record(self, byte_buffer):
+        self.s.sendall(byte_buffer)
         print("writing to quest")
         pass
 
