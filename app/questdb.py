@@ -2,7 +2,7 @@ import datetime
 import socket
 from models import *
 
-#this is in the Influx line protocol, commas are only after the table name
+#this is in the Influx line protocol, commas are only after the table name then inbetween each value. Spaces are the important delimiter
 table_name = """Screech_list,msgtype="bsc" """
 
 class quest:
@@ -17,17 +17,18 @@ class quest:
         pass
 
     def send_screech_to_quest(self, screachs : List[Screech_data]):
-        send_me = ''
+        ILP_string = ''
         for payload in screachs:
-            send_me += self.make_screach_Record(payload)
+            ILP_string += self.make_screach_Record(payload)
 
-        print(send_me)
-        self.send_record(bytes(send_me, "utf-8"))
+        print(ILP_string)
+        self.send_record(bytes(ILP_string, "utf-8"))
         pass
 
-    def make_screach_Record(self, myscreach : Screech_data):
-        print(type(myscreach))
-        out = table_name + 'author="' + myscreach.author + '",raw="' + myscreach.raw + '",HashTags="' + ','.join(myscreach.hashtags) + '",Users="' + ','.join(myscreach.users) + '",imgUrls="' + ','.join(myscreach.image_urls) + '"\n'
+        #shouly likely break this into an ILP making function at some point but it works for now...
+    def make_screach_Record(self, my_screach : Screech_data):
+        print(type(my_screach))
+        out = table_name + 'author="' + my_screach.author + '",raw="' + my_screach.raw + '",HashTags="' + ','.join(my_screach.hashtags) + '",Users="' + ','.join(my_screach.users) + '",imgUrls="' + ','.join(my_screach.image_urls) + '"\n'
         return out
         pass
 
