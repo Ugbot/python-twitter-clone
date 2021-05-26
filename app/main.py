@@ -33,7 +33,7 @@ async def root():
  
 
 @app.post("/inbound")
-async def data_firehose(data: AblyWebhook, request: Request):
+async def data_firehose(data: Ably_webhook, request: Request):
     pp.pprint (data)
     #process this into a list of screechs
     # screech_records : List[Screech_data]
@@ -50,7 +50,7 @@ async def data_firehose(data: AblyWebhook, request: Request):
 
 
 @app.post("/presence")
-async def presence_firehose(data: AblyWebhook, request: Request):
+async def presence_firehose(data: Ably_webhook, request: Request):
     # print(data)
     # all presence events
     #sreech_records = [x for x in data.items[0].data.messages]
@@ -60,13 +60,3 @@ async def presence_firehose(data: AblyWebhook, request: Request):
     return 200
 
 
-# @app.exception_handler(RequestValidationError)
-# async def _(request: Request,
-#             exc: ValidationError):
-#     try:
-#         print(await request.json())
-#     except json.decoder.JSONDecodeError:
-#         # Request had invalid or no body
-#         pass
-
-#     raise exc
